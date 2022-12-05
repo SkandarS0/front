@@ -1,0 +1,72 @@
+<h1>Quizzes</h1>
+<div *ngIf="user.is_staff">
+	<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Quiz</a>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th style="width: 30%">N° Students</th>
+				<th style="width: 15%">Difficuly</th>
+				<th style="width: 15%">Category</th>
+				<th style="width: 30%">Available questions' count</th>
+				<th style="width: 30%">Maximum  questions</th>
+				<th style="width: 10%"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let quiz of quizzes">
+				<td>{{ quiz.students.length }}</td>
+				<td>{{ quiz.difficulty.hr_name || "Any" }}</td>
+				<td>{{ quiz.category.hr_name || "Any" }}</td>
+				<td>{{ quiz.questions.length }}</td>
+				<td>{{ quiz.max_count }}</td>
+				<td style="white-space: nowrap">
+					<!-- <a routerLink="edit/{{ quiz.id }}" class="btn btn-sm btn-primary me-1"
+						>Edit</a
+					> -->
+					<button (click)="deleteQuiz(quiz.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="quiz.isDeleting">
+                    <span *ngIf="quiz.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!quiz.isDeleting">Delete</span>
+                </button>
+				</td>
+			</tr>
+			<tr *ngIf="!quizzes">
+				<td colspan="4" class="text-center">
+					<span class="spinner-border spinner-border-lg align-center"></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div *ngIf="!user.is_staff">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th style="width: 30%">Teacher</th>
+				<th style="width: 15%">Difficuly</th>
+				<th style="width: 15%">Category</th>
+				<th style="width: 30%">Available questions' count</th>
+				<th style="width: 30%">Maximum  questions</th>
+				<th style="width: 10%"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let quiz of quizzes">
+				<td>{{ quiz.teacher.email }}</td>
+				<td>{{ quiz.difficulty.hr_name || "Any" }}</td>
+				<td>{{ quiz.category.hr_name || "Any" }}</td>
+				<td>{{ quiz.questions_count }}</td>
+				<td>{{ quiz.max_count }}</td>
+				<td style="white-space: nowrap">
+					<a routerLink="answer/{{ quiz.id }}" class="btn btn-sm btn-primary me-1"
+						>Answer</a
+					>
+				</td>
+			</tr>
+			<tr *ngIf="!quizzes">
+				<td colspan="4" class="text-center">
+					<span class="spinner-border spinner-border-lg align-center"></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

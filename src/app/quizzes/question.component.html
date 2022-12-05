@@ -1,0 +1,35 @@
+<h1>Questions</h1>
+<div>
+	<!-- <a routerLink="add" class="btn btn-sm btn-success mb-2">Add Question</a> -->
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th style="width: 30%">Question</th>
+				<th style="width: 15%">Difficuly</th>
+				<th style="width: 15%">Category</th>
+				<!-- <th style="width: 10%"></th> -->
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let question of questions">
+				<td>{{ question.question }}</td>
+				<td>{{ question.difficulty.hr_name || "Any" }}</td>
+				<td>{{ question.category.hr_name || "Any" }}</td>
+				<!-- <td style="white-space: nowrap">
+					<a routerLink="edit/{{ question.id }}" class="btn btn-sm btn-primary me-1"
+						>Edit</a
+					>
+					<button (click)="deleteQuestion(question.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="question.isDeleting">
+                    <span *ngIf="question.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!question.isDeleting">Delete</span>
+                </button>
+				</td> -->
+			</tr>
+			<tr *ngIf="!questions">
+				<td colspan="4" class="text-center">
+					<span class="spinner-border spinner-border-lg align-center"></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

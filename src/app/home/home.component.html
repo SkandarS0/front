@@ -1,0 +1,10 @@
+<div class="p-4">
+	<div class="container" *ngIf="user.is_staff">
+		<h1>Hi Teacher!</h1>
+		<p><a routerLink="/quizzes">Manage Quizzes</a></p>
+	</div>
+	<div class="container" *ngIf="!user.is_staff">
+		<h1>Hi Student!</h1>
+		<p><a routerLink="/quizzes">View assigned Quizzes</a></p>
+	</div>
+</div>

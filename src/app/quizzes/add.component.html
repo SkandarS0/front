@@ -1,0 +1,80 @@
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+	<div class="row">
+		<div class="mb-3 col">
+			<label class="form-label fw-bold">Count*</label>
+			<input
+				type="number"
+				formControlName="count"
+				class="form-control"
+				[ngClass]="{ 'is-invalid': submitted && f.count.errors }"
+			/>
+			<div *ngIf="submitted && f.count.errors" class="invalid-feedback">
+				<div *ngIf="f.count.errors.required">Count is required</div>
+			</div>
+		</div>
+		<div class="mb-3 col">
+			<label class="form-label">Category</label>
+			<select
+				class="form-select"
+				aria-label="Quiz Category"
+				formControlName="category"
+				[ngClass]="{ 'is-invalid': submitted && f.category.errors }"
+			>
+				<option
+					[value]="category_choice.id"
+					*ngFor="let category_choice of this.categories"
+				>
+					{{ category_choice.hr_name }}
+				</option>
+			</select>
+		</div>
+		<div class="mb-3 col">
+			<label class="form-label">Difficulty</label>
+			<select
+				class="form-select"
+				aria-label="Quiz Difficulty"
+				formControlName="difficulty"
+				[ngClass]="{ 'is-invalid': submitted && f.difficulty.errors }"
+			>
+				<option
+					[value]="difficulty_choice.id"
+					*ngFor="let difficulty_choice of this.difficulties"
+				>
+					{{ difficulty_choice.hr_name }}
+				</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="mb-3 col">
+			<label class="form-label">Students</label>
+			<select
+				class="form-select"
+				multiple
+				aria-label="Assigned Students"
+				formControlName="students"
+				[ngClass]="{ 'is-invalid': submitted && f.students.errors }"
+			>
+				<option
+					[value]="student.id"
+					*ngFor="let student of this.students"
+				>
+					{{ student.username }}
+				</option>
+			</select>
+		</div>
+	</div>
+	<div class="mb-3">
+		<button [disabled]="submitting" class="btn btn-primary">
+			<span
+				*ngIf="submitting"
+				class="spinner-border spinner-border-sm me-1"
+			></span>
+			Save
+		</button>
+		<a routerLink="../" class="btn btn-link">Cancel</a>
+	</div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+	<span class="spinner-border spinner-border-lg align-center"></span>
+</div>
